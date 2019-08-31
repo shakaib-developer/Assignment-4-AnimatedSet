@@ -9,136 +9,193 @@
 import UIKit
 
 class ViewController: UIViewController {
-
     var game = SetGame()
     
     var selectedCards = Set<Card>()
-    var selectedCardButtons = Set<UIButton>()
+    var selectedCardButtons = Set<CardButtonView>()
     
     var shownCards = 0
+    var cardButtons = Set<CardButtonView>() {
+        didSet {
+            layoutAgain()
+        }
+    }
+    
+    var grid = Grid(layout: Grid.Layout.aspectRatio(3/2))
+    
     var score = 0 {
         didSet {
             scoreLabel.text = "Score : \(score)"
         }
     }
     
-//    @IBOutlet var CardButtons: [UIButton]!
     @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var cardContainerView: PlayingCardContainerView!
     
-//    @IBAction func touchCard(_ sender: UIButton) {
-//        selectCard(sender)
-//
-//        let title = sender.attributedTitle(for: .normal)
-//        let color = title?.attribute(.foregroundColor, at: 0, effectiveRange: nil) as! UIColor
-//        let filling = title?.attribute(.strokeWidth, at: 0, effectiveRange: nil) as! Int
-//
-//        let touchedCard = Card(count: title!.length, shape: title!.string, color: color, filling: filling)
-//
-//        if selectedCards.count < 3 {
-//            if selectedCards.contains(touchedCard)
-//            {
-//                selectedCardButtons.remove(sender)
-//                selectedCards.remove(touchedCard)
-//            }
-//            else {
-//                selectedCardButtons.insert(sender)
-//                selectedCards.insert(touchedCard)
-//            }
-//        }
-//        if selectedCards.count >= 3 {
-//            if game.isMatch(selectedCards: selectedCards) {
-//                selectedCardButtons.forEach { setButtonProperties($0, game.getCardProperties()) }
-//                score += 4
-//            }
-//            score -= 1
-//            selectedCardButtons.forEach { $0.layer.borderWidth = 0.0 }
-//            selectedCardButtons.removeAll()
-//            selectedCards.removeAll()
-//
-//           // scoreLabel.text = "Score : \(score)"
-//        }
-//
-//        print("selectedCards.count = \(selectedCards.count)")
-//        print("threeSelectedCards = \(selectedCardButtons.count)")
-//    }
+    @IBAction func NewGame(_ sender: UIButton) {
+        reset()
+    }
     
-//    @IBAction func DealMoreCards(_ sender: UIButton) {
-//        if shownCards < 23 && game.cards.count > 0 {
-//            for index in  shownCards..<(shownCards + 3) {
-//                setButtonProperties(CardButtons[index], game.getCardProperties())
-//                CardButtons[index].alpha = 1.0
-//            }
-//            shownCards += 3
-//        }
-//        else {
-//            showAlert(withTile: "Hey Listen!", andMessage: "Cannot deal more cards. ☹️")
-//        }
-//    }
+    @IBAction func SwipeDownGesture(_ sender: UISwipeGestureRecognizer) {
+        if sender.direction == .down {
+            dealMoreCards()
+        }
+    }
     
-//    @IBAction func NewGame(_ sender: UIButton) {
-//        reset()
-//    }
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        if UIDevice.current.orientation.isLandscape {
+            print("landscape")
+            grid = Grid(layout: Grid.Layout.aspectRatio(3/2), frame: cardContainerView.bounds)
+            print(grid.frame)
+         } else {
+            print("potrait")
+            grid = Grid(layout: Grid.Layout.aspectRatio(3/2), frame: cardContainerView.bounds)
+            print(grid.frame)
+        }
+        
+        layoutAgain()
+    }
     
-//    func setButtonProperties(_ sender: UIButton, _ OptCard: Card?) {
-//        if let card = OptCard {
-//            var attributes = [NSAttributedStringKey : Any]()
-//            attributes[NSAttributedStringKey.strokeWidth] = card.filling
-//            attributes[NSAttributedStringKey.foregroundColor] = card.color
-//            
-//            let title = NSMutableAttributedString(string: card.shape, attributes: attributes)
-//            
-//            sender.setAttributedTitle(title, for: .normal)
-//            sender.titleColor(for: .normal)
-//        }
-//        else {
-//            sender.alpha = 0.0
-//        }
-//    }
+    @objc func CardTapGesture(_ sender: CardButtonView) {
+        if sender.layer.borderWidth != 3.0 {
+            sender.layer.borderWidth = 3.0
+            sender.layer.borderColor = UIColor.red.cgColor
+        }
+        else {
+            sender.layer.borderColor = UIColor.black.cgColor
+            sender.layer.borderWidth = 1.0
+        }
+        
+        let touchedCard = Card(count: sender.count!, shape: sender.shape!, color: sender.color!, filling: sender.filling!)
+
+        if selectedCards.count < 3 {
+            if selectedCards.contains(touchedCard)
+            {
+                selectedCardButtons.remove(sender)
+                selectedCards.remove(touchedCard)
+            }
+            else
+            {
+                selectedCardButtons.insert(sender)
+                selectedCards.insert(touchedCard)
+            }
+        }
+        if selectedCards.count >= 3 {
+            if game.isMatch(selectedCards: selectedCards)
+            {
+                cardButtons.subtract(selectedCardButtons)
+                shownCards -= 3
+                score += 4
+            }
+            score -= 1
+            selectedCardButtons.forEach { $0.layer.borderColor = UIColor.black.cgColor; $0.layer.borderWidth = 1.0 }
+            selectedCardButtons.removeAll()
+            selectedCards.removeAll()
+        }
+        
+    }
     
-//    func showAlert(withTile title:String,andMessage message:String)
-//    {
-//        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-//        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-//        self.present(alert, animated: true, completion: nil)
-//    }
-//
-//    func setTheme() {
-//        view.layer.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-//        CardButtons.forEach { $0.backgroundColor = UIColor.white }
-//        scoreLabel.textColor = UIColor.white
-//    }
+    @IBAction func RotationGesture(_ sender: UIRotationGestureRecognizer) {
+        if sender.state == .began {
+            reShuffleCards()
+        }
+    }
     
-//    override func viewDidLoad() {
-//        setTheme()
-//        reset()
-//    }
+    @IBAction func DealMoreCardsButtonClicked(_ sender: UIButton) {
+        dealMoreCards()
+    }
     
-//    func reset() {
-//        shownCards = 0
-//        score = 0
-//        game = SetGame()
-//        for index in  0...23 {
-//            CardButtons[index].layer.borderWidth = 0.0
-//            if index < 12 {
-//                setButtonProperties(CardButtons[index], game.getCardProperties())
-//                shownCards += 1
-//                CardButtons[index].alpha = 1.0
-//            }
-//            else {
-//                CardButtons[index].alpha = 0
-//            }
-//        }
-//    }
+    func reShuffleCards() {
+        cardButtons = cardButtons.union(selectedCardButtons)
+        cardButtons.forEach {
+            let tempCard = Card(count: $0.count!, shape: $0.shape!, color: $0.color!, filling: $0.filling!)
+            game.cards.append(tempCard)
+            $0.removeFromSuperview()
+            cardButtons.remove($0)
+        }
+        
+        for _ in 0..<shownCards {
+            let cardView = fetchNewCard()
+            cardContainerView.addSubview(cardView)
+            cardButtons.insert(cardView)
+        }
+    }
     
-//    func selectCard(_ sender: UIButton) {
-//        if sender.layer.borderWidth != 3.0 {
-//            sender.layer.borderWidth = 3.0
-//            sender.layer.borderColor = UIColor.red.cgColor
-//        }
-//        else {
-//            sender.layer.borderWidth = 0.0
-//        }
-//    }
+    func dealMoreCards() {
+        if shownCards >= 3 && game.cards.count > 0 {
+            grid.cellCount = shownCards+3
+            
+            for _ in shownCards..<shownCards+3 {
+                let cardView = fetchNewCard()
+                cardContainerView.addSubview(cardView)
+                
+                cardButtons.insert(cardView)
+            }
+            
+            shownCards += 3
+        }
+        else {
+            showAlert(withTile: "Hey Listen!", andMessage: "Cannot deal more cards. ☹️")
+        }
+    }
+    
+    func fetchNewCard() -> CardButtonView {
+        let card = game.getCardProperties()!
+        let cardView: CardButtonView = CardButtonView()
+        cardView.filling = card.filling
+        cardView.count = card.count
+        cardView.shape = card.shape
+        cardView.color = card.color
+        cardView.layer.cornerRadius = 10
+        cardView.layer.borderColor = UIColor.black.cgColor
+        cardView.layer.borderWidth = 1.0
+        
+        cardView.addTarget(self, action: #selector(CardTapGesture(_:)), for: .touchUpInside)
+        
+        return cardView
+    }
+    
+    func layoutAgain() {
+        grid.cellCount = cardButtons.count
+        
+        for subview in cardContainerView.subviews {
+            subview.removeFromSuperview()
+        }
+        
+        for (i, button) in cardButtons.enumerated() {
+            cardContainerView.addSubview(button)
+            button.frame = grid[i]!
+        }
+    }
+    
+    override func viewDidLoad() {
+        reset()
+        layoutAgain()
+    }
+    
+    func reset() {
+        shownCards = 12
+        score = 0
+        game = SetGame()
+        cardButtons.removeAll()
+        
+        grid.frame = cardContainerView.bounds
+        grid.cellCount = shownCards
+        
+        for _ in 0..<shownCards {
+            let cardView = fetchNewCard()
+            cardContainerView.addSubview(cardView)
+            cardButtons.insert(cardView)
+        }
+    }
+    
+    func showAlert(withTile title:String,andMessage message:String)
+    {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
 }
 
 extension Int {

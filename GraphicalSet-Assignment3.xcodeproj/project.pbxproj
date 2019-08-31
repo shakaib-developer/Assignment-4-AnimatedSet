@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		103B35B123140C3C001F0DC5 /* CardButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103B35B023140C3C001F0DC5 /* CardButtonView.swift */; };
+		103B35B3231663B1001F0DC5 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103B35B2231663B1001F0DC5 /* Grid.swift */; };
 		10540CDF230EE2E100CDB0AF /* SetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10540CDE230EE2E100CDB0AF /* SetGame.swift */; };
 		10540CE323113CD900CDB0AF /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 10540CE223113CD900CDB0AF /* Default-568h@2x.png */; };
 		10540CE5231140EA00CDB0AF /* PlayingCardContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10540CE4231140EA00CDB0AF /* PlayingCardContainerView.swift */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		103B35B023140C3C001F0DC5 /* CardButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButtonView.swift; sourceTree = "<group>"; };
+		103B35B2231663B1001F0DC5 /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		10540CDE230EE2E100CDB0AF /* SetGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetGame.swift; sourceTree = "<group>"; };
 		10540CE223113CD900CDB0AF /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		10540CE4231140EA00CDB0AF /* PlayingCardContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingCardContainerView.swift; sourceTree = "<group>"; };
@@ -68,10 +70,11 @@
 				10540CDE230EE2E100CDB0AF /* SetGame.swift */,
 				10540CE4231140EA00CDB0AF /* PlayingCardContainerView.swift */,
 				1083418F230D1E05003A8F1C /* ViewController.swift */,
+				103B35B023140C3C001F0DC5 /* CardButtonView.swift */,
 				10834191230D1E05003A8F1C /* Main.storyboard */,
+				103B35B2231663B1001F0DC5 /* Grid.swift */,
 				1083419F230D1E2C003A8F1C /* Supporting FIles */,
 				10834199230D1E07003A8F1C /* Info.plist */,
-				103B35B023140C3C001F0DC5 /* CardButtonView.swift */,
 			);
 			path = "GraphicalSet-Assignment3";
 			sourceTree = "<group>";
@@ -164,6 +167,7 @@
 				10834190230D1E05003A8F1C /* ViewController.swift in Sources */,
 				108341A1230D2A62003A8F1C /* Card.swift in Sources */,
 				103B35B123140C3C001F0DC5 /* CardButtonView.swift in Sources */,
+				103B35B3231663B1001F0DC5 /* Grid.swift in Sources */,
 				1083418E230D1E05003A8F1C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

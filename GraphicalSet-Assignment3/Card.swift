@@ -43,9 +43,9 @@ class Card: Hashable {
     var count: Int
     var shape: String
     var color: UIColor
-    var filling: Int
+    var filling: String
     
-    init(count: Int, shape: String, color: UIColor, filling: Int) {
+    init(count: Int, shape: String, color: UIColor, filling: String) {
         self.count = count
         self.shape = shape
         self.color = color

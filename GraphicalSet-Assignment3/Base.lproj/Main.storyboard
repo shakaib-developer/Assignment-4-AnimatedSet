@@ -18,16 +18,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ptd-ne-LlO">
-                                <rect key="frame" x="108.33333333333331" y="736" width="169" height="41"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6H1-7u-Kze" customClass="PlayingCardContainerView" customModule="GraphicalSet_Assignment3" customModuleProvider="target">
+                                <rect key="frame" x="16" y="44" width="343" height="621"/>
+                                <color key="backgroundColor" red="1" green="0.89448043700000002" blue="0.0093633764900000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Dl3-0V-U3w" appends="YES" id="b5B-gD-GHj"/>
+                                    <outletCollection property="gestureRecognizers" destination="iIR-BK-vzw" appends="YES" id="HbS-YJ-b3R"/>
+                                </connections>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tvn-yc-sa9">
+                                <rect key="frame" x="40" y="673" width="156" height="36"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <state key="normal" title="Deal More Cards"/>
+                                <connections>
+                                    <action selector="DealMoreCardsButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Isu-iW-XUC"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ptd-ne-LlO">
+                                <rect key="frame" x="97" y="740" width="181" height="38"/>
                                 <attributedString key="attributedText">
                                     <fragment content="SCORE : 0">
                                         <attributes>
                                             <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <font key="NSFont" size="35" name=".SFNSText"/>
+                                            <font key="NSFont" size="32" name=".SFNSText"/>
                                             <font key="NSOriginalFont" size="35" name=".AppleSystemUIFont"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" paragraphSpacing="4" paragraphSpacingBefore="4" tighteningFactorForTruncation="0.0"/>
                                             <integer key="NSUnderline" value="1"/>
                                         </attributes>
                                     </fragment>
@@ -35,48 +51,51 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7yu-aj-A6a">
-                                <rect key="frame" x="204" y="670" width="156" height="43"/>
+                                <rect key="frame" x="204" y="677" width="156" height="36"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <state key="normal" title="New Game"/>
                                 <connections>
-                                    <action selector="NewGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jxR-V0-dxT"/>
-                                </connections>
-                            </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6H1-7u-Kze" customClass="PlayingCardContainerView" customModule="GraphicalSet_Assignment3" customModuleProvider="target">
-                                <rect key="frame" x="16" y="44" width="343" height="621"/>
-                                <color key="backgroundColor" red="1" green="0.89448043700000002" blue="0.0093633764900000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tvn-yc-sa9">
-                                <rect key="frame" x="40" y="673" width="156" height="36"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <state key="normal" title="Deal More Cards"/>
-                                <connections>
-                                    <action selector="DealMoreCards:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XML-x4-KtO"/>
+                                    <action selector="NewGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2OU-vS-y7r"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6H1-7u-Kze" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="FOk-vl-8nW"/>
+                            <constraint firstItem="Ptd-ne-LlO" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="JgN-0r-1YN"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Tvn-yc-sa9" secondAttribute="trailing" constant="179" id="QRT-Ra-UeP"/>
                             <constraint firstItem="7yu-aj-A6a" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="204" id="SoT-ZA-eiB"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7yu-aj-A6a" secondAttribute="trailing" constant="15" id="TQw-kT-K7i"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="7yu-aj-A6a" secondAttribute="bottom" constant="65" id="ZOI-2l-07i"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6H1-7u-Kze" secondAttribute="trailing" constant="16" id="aSr-Fk-ixx"/>
+                            <constraint firstItem="Ptd-ne-LlO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="97" id="fid-cB-kcw"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="6H1-7u-Kze" secondAttribute="bottom" constant="113" id="j7n-W8-hKS"/>
-                            <constraint firstItem="7yu-aj-A6a" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="626" id="mDQ-CO-fE7"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="6H1-7u-Kze" secondAttribute="top" id="mDQ-CO-fE7"/>
                             <constraint firstItem="Tvn-yc-sa9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="n5G-KJ-En8"/>
                             <constraint firstItem="6H1-7u-Kze" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="oCL-nX-d21"/>
-                            <constraint firstItem="Tvn-yc-sa9" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="629" id="oMt-9g-KRD"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="6H1-7u-Kze" secondAttribute="top" id="oMt-9g-KRD"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Tvn-yc-sa9" secondAttribute="bottom" constant="69" id="rjD-0e-qnD"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Ptd-ne-LlO" secondAttribute="trailing" constant="97" id="uEG-vT-7em"/>
+                            <constraint firstItem="Ptd-ne-LlO" firstAttribute="top" secondItem="7yu-aj-A6a" secondAttribute="bottom" constant="27" id="wZ5-8H-WpH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="cardContainerView" destination="6H1-7u-Kze" id="1Te-zt-UUu"/>
                         <outlet property="scoreLabel" destination="Ptd-ne-LlO" id="G0B-ra-Ac3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="down" id="Dl3-0V-U3w">
+                    <connections>
+                        <action selector="SwipeDownGesture:" destination="BYZ-38-t0r" id="Hhm-1k-nUR"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <rotationGestureRecognizer id="iIR-BK-vzw">
+                    <connections>
+                        <action selector="RotationGesture:" destination="BYZ-38-t0r" id="FFh-Il-L0d"/>
+                    </connections>
+                </rotationGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-79.200000000000003" y="133.74384236453201"/>
         </scene>

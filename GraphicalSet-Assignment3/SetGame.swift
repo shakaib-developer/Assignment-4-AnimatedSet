@@ -12,30 +12,23 @@ import UIKit
 class SetGame {
     
     var cards = [Card]()
-    var selectedCards = 0
     
-    var shapesDict = ["squiggle": "■", "diamond": "▲", "oval": "●"]
-    var colorsDict = ["red": #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1),"green": #colorLiteral(red: 0, green: 0.9768045545, blue: 0, alpha: 1), "purple": #colorLiteral(red: 0.5791940689, green: 0.1280144453, blue: 0.5726861358, alpha: 1)] // 1 = red, 2 = green, 3 = purple
-    var fillingDict = ["solid": 0, "striped": 05, "outlined": 020] // 0 = solid, striped = 05, outlined = 020
+    var shapesArray = ["squiggles", "diamonds", "ovals"]
+    var colorsDict = ["red": #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1),"green": #colorLiteral(red: 0, green: 0.9768045545, blue: 0, alpha: 1), "purple": #colorLiteral(red: 0.5791940689, green: 0.1280144453, blue: 0.5726861358, alpha: 1)]
+    var fillingArray = ["filled","outline","striped"]
     var countArray = [1, 2, 3]
     
     
     init() {
-        selectedCards = 0
-        
-        for (_,shapeValue) in shapesDict {
+        for shapeValue in shapesArray {
 
             for (_, colorValue) in colorsDict {
 
-                for (_, fillingValue) in fillingDict {
+                for fillingValue in fillingArray {
                     
-                    var charShow = ""
-
                      for count in countArray.indices {
-
-                        charShow += shapeValue
                         
-                        let tempCard = Card(count: countArray[count], shape: charShow, color: colorValue, filling: fillingValue)
+                        let tempCard = Card(count: countArray[count], shape: shapeValue, color: colorValue, filling: fillingValue)
                         
                         cards.append(tempCard)
                         

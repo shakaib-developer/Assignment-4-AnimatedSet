@@ -9,11 +9,5 @@
 import UIKit
 
 class PlayingCardContainerView: UIView {
-    
-    override func draw(_ rect: CGRect) {
-        let cardView:CardButtonView = CardButtonView(frame:CGRect(x: 0, y: 0, width: 40, height: 40))
-        self.addSubview(cardView)
-    }
-    
-
+    override func draw(_ rect: CGRect) {}
 }
