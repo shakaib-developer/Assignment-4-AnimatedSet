@@ -27,14 +27,6 @@
                                     <outletCollection property="gestureRecognizers" destination="iIR-BK-vzw" appends="YES" id="HbS-YJ-b3R"/>
                                 </connections>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tvn-yc-sa9">
-                                <rect key="frame" x="40" y="673" width="156" height="36"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <state key="normal" title="Deal More Cards"/>
-                                <connections>
-                                    <action selector="DealMoreCardsButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Isu-iW-XUC"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ptd-ne-LlO">
                                 <rect key="frame" x="97" y="740" width="181" height="38"/>
                                 <attributedString key="attributedText">
@@ -50,33 +42,42 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7yu-aj-A6a">
-                                <rect key="frame" x="204" y="677" width="156" height="36"/>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7yu-aj-A6a">
+                                <rect key="frame" x="258" y="673" width="102" height="36"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <state key="normal" title="New Game"/>
                                 <connections>
                                     <action selector="NewGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2OU-vS-y7r"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tvn-yc-sa9">
+                                <rect key="frame" x="71" y="673" width="156" height="36"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <state key="normal" title="Deal More Cards"/>
+                                <connections>
+                                    <action selector="DealMoreCardsButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Isu-iW-XUC"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="7yu-aj-A6a" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Tvn-yc-sa9" secondAttribute="trailing" constant="8" symbolic="YES" id="1yZ-Q7-CnC"/>
+                            <constraint firstItem="Tvn-yc-sa9" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="71" id="9bp-YA-ZJ1"/>
+                            <constraint firstItem="Ptd-ne-LlO" firstAttribute="top" secondItem="Tvn-yc-sa9" secondAttribute="bottom" constant="31" id="A3U-hM-wdz"/>
+                            <constraint firstItem="7yu-aj-A6a" firstAttribute="baseline" secondItem="Tvn-yc-sa9" secondAttribute="baseline" id="Err-y5-fAg"/>
                             <constraint firstItem="6H1-7u-Kze" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="FOk-vl-8nW"/>
                             <constraint firstItem="Ptd-ne-LlO" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="JgN-0r-1YN"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Tvn-yc-sa9" secondAttribute="trailing" constant="179" id="QRT-Ra-UeP"/>
-                            <constraint firstItem="7yu-aj-A6a" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="204" id="SoT-ZA-eiB"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7yu-aj-A6a" secondAttribute="trailing" constant="15" id="TQw-kT-K7i"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="7yu-aj-A6a" secondAttribute="bottom" constant="65" id="ZOI-2l-07i"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6H1-7u-Kze" secondAttribute="trailing" constant="16" id="aSr-Fk-ixx"/>
+                            <constraint firstItem="Tvn-yc-sa9" firstAttribute="top" secondItem="6H1-7u-Kze" secondAttribute="bottom" constant="8" id="b7X-dZ-gIf"/>
                             <constraint firstItem="Ptd-ne-LlO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="97" id="fid-cB-kcw"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="6H1-7u-Kze" secondAttribute="bottom" constant="113" id="j7n-W8-hKS"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="6H1-7u-Kze" secondAttribute="top" id="mDQ-CO-fE7"/>
-                            <constraint firstItem="Tvn-yc-sa9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="n5G-KJ-En8"/>
                             <constraint firstItem="6H1-7u-Kze" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="oCL-nX-d21"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="6H1-7u-Kze" secondAttribute="top" id="oMt-9g-KRD"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Tvn-yc-sa9" secondAttribute="bottom" constant="69" id="rjD-0e-qnD"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Ptd-ne-LlO" secondAttribute="trailing" constant="97" id="uEG-vT-7em"/>
-                            <constraint firstItem="Ptd-ne-LlO" firstAttribute="top" secondItem="7yu-aj-A6a" secondAttribute="bottom" constant="27" id="wZ5-8H-WpH"/>
+                            <constraint firstItem="7yu-aj-A6a" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Tvn-yc-sa9" secondAttribute="trailing" constant="8" symbolic="YES" id="xgH-d8-pOk"/>
+                            <constraint firstItem="7yu-aj-A6a" firstAttribute="top" secondItem="6H1-7u-Kze" secondAttribute="bottom" constant="8" symbolic="YES" id="yQh-fa-jHP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

@@ -42,18 +42,8 @@ class ViewController: UIViewController {
         }
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        if UIDevice.current.orientation.isLandscape {
-            print("landscape")
-            grid = Grid(layout: Grid.Layout.aspectRatio(3/2), frame: cardContainerView.bounds)
-            print(grid.frame)
-         } else {
-            print("potrait")
-            grid = Grid(layout: Grid.Layout.aspectRatio(3/2), frame: cardContainerView.bounds)
-            print(grid.frame)
-        }
-        
+    override func viewDidLayoutSubviews() {
+        grid = Grid(layout: Grid.Layout.aspectRatio(3/2), frame: cardContainerView.bounds)
         layoutAgain()
     }
     
