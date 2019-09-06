@@ -8,12 +8,14 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class SetViewController: UIViewController {
     var game = SetGame()
     
-    var selectedCards = Set<Card>()
+    var selectedCards = Set<SetCard>()
     var selectedCardButtons = Set<CardButtonView>()
+    var deal3CardsSet = Set<CardButtonView>()
     
+    var dealMoreCardsClicked = false
     var shownCards = 0
     var cardButtons = Set<CardButtonView>() {
         didSet {
@@ -29,13 +31,14 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var scoreLabel: UILabel!
+        @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var cardContainerView: PlayingCardContainerView!
     
     @IBAction func NewGame(_ sender: UIButton) {
         reset()
     }
     
+    @IBOutlet weak var dealMoreCardsButton: UIButton!
     @IBAction func SwipeDownGesture(_ sender: UISwipeGestureRecognizer) {
         if sender.direction == .down {
             dealMoreCards()
@@ -57,7 +60,7 @@ class ViewController: UIViewController {
             sender.layer.borderWidth = 1.0
         }
         
-        let touchedCard = Card(count: sender.count!, shape: sender.shape!, color: sender.color!, filling: sender.filling!)
+        let touchedCard = SetCard(count: sender.count!, shape: sender.shape!, color: sender.color!, filling: sender.filling!)
 
         if selectedCards.count < 3 {
             if selectedCards.contains(touchedCard)
@@ -72,18 +75,53 @@ class ViewController: UIViewController {
             }
         }
         if selectedCards.count >= 3 {
+            dealMoreCardsClicked = true
             if game.isMatch(selectedCards: selectedCards)
             {
-                cardButtons.subtract(selectedCardButtons)
-                shownCards -= 3
-                score += 4
+                
+                UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 2, delay: 0.5, options: [], animations: { [unowned self] in
+                    self.selectedCardButtons.forEach {
+                            $0.superview?.bringSubview(toFront: $0)
+                            $0.transform = CGAffineTransform.identity.rotated(by: CGFloat.pi)
+                            $0.transform = CGAffineTransform.identity.scaledBy(x: 2, y: 2)
+                         }
+                }, completion: { _ in
+                    UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 2, delay: 0.5, options: [], animations: { [unowned self] in
+                        self.selectedCardButtons.forEach {
+                            $0.transform = CGAffineTransform.identity.scaledBy(x: 0.5, y: 0.5)
+                            $0.frame = self.scoreLabel.frame
+                            $0.alpha = 0.1
+                        }
+                    }, completion: { _ in
+                            self.cardButtons = self.cardButtons.subtracting(self.selectedCardButtons)
+                            self.shownCards -= 3
+                            self.score += 3
+                            if self.game.cards.count > 0 {
+                                self.dealMoreCards()
+                            }
+                            self.selectedCardButtons.removeAll()
+                        
+                            self.selectedCardButtons.forEach {
+                                $0.layer.borderColor = UIColor.black.cgColor
+                                $0.layer.borderWidth = 1.0
+                            }
+                        
+                            self.selectedCards.removeAll()
+                        
+                        })
+                })
             }
-            score -= 1
-            selectedCardButtons.forEach { $0.layer.borderColor = UIColor.black.cgColor; $0.layer.borderWidth = 1.0 }
-            selectedCardButtons.removeAll()
-            selectedCards.removeAll()
+            
+            else {
+                score -= 1
+                selectedCardButtons.forEach {
+                    $0.layer.borderColor = UIColor.black.cgColor
+                    $0.layer.borderWidth = 1.0
+                }
+                selectedCardButtons.removeAll()
+                selectedCards.removeAll()
+            }
         }
-        
     }
     
     @IBAction func RotationGesture(_ sender: UIRotationGestureRecognizer) {
@@ -99,7 +137,7 @@ class ViewController: UIViewController {
     func reShuffleCards() {
         cardButtons = cardButtons.union(selectedCardButtons)
         cardButtons.forEach {
-            let tempCard = Card(count: $0.count!, shape: $0.shape!, color: $0.color!, filling: $0.filling!)
+            let tempCard = SetCard(count: $0.count!, shape: $0.shape!, color: $0.color!, filling: $0.filling!)
             game.cards.append(tempCard)
             $0.removeFromSuperview()
             cardButtons.remove($0)
@@ -113,16 +151,18 @@ class ViewController: UIViewController {
     }
     
     func dealMoreCards() {
+        dealMoreCardsClicked = true
         if shownCards >= 3 && game.cards.count > 0 {
             grid.cellCount = shownCards+3
             
             for _ in shownCards..<shownCards+3 {
                 let cardView = fetchNewCard()
-                cardContainerView.addSubview(cardView)
                 
-                cardButtons.insert(cardView)
+                self.cardContainerView.addSubview(cardView)
+                
+                deal3CardsSet.insert(cardView)
             }
-            
+            cardButtons = cardButtons.union(deal3CardsSet)
             shownCards += 3
         }
         else {
@@ -153,10 +193,40 @@ class ViewController: UIViewController {
             subview.removeFromSuperview()
         }
         
+        var delayTime : Double = 0
+        
         for (i, button) in cardButtons.enumerated() {
             cardContainerView.addSubview(button)
-            button.frame = grid[i]!
+           
+             if dealMoreCardsClicked && !deal3CardsSet.contains(button) {
+
+                UIViewPropertyAnimator(duration: 1, curve: .easeInOut) { [unowned self] in
+                    button.frame = self.grid[i]!
+                }.startAnimation()
+
+            }
+            else {
+                delayTime = delayTime + 0.3
+                button.frame = dealMoreCardsButton.frame
+                button.alpha = 0.1
+                button.backgroundColor = UIColor.darkGray
+                
+                UIViewPropertyAnimator.runningPropertyAnimator(
+                                       withDuration: 0.5,
+                                       delay: TimeInterval(delayTime),
+                                       options: [.curveEaseInOut],
+                                       animations: {
+                    button.frame = self.grid[i]!
+                }, completion: { _ in
+                    UIView.transition(with: button, duration: 0.5, options: .transitionFlipFromLeft, animations: {
+                        button.alpha = 1.0
+                        button.backgroundColor = UIColor.clear
+                    }, completion: nil)
+                })
+            }
         }
+        
+        deal3CardsSet.removeAll()
     }
     
     override func viewDidLoad() {
@@ -165,6 +235,7 @@ class ViewController: UIViewController {
     }
     
     func reset() {
+        dealMoreCardsClicked = false
         shownCards = 12
         score = 0
         game = SetGame()
@@ -185,19 +256,5 @@ class ViewController: UIViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
-    }
-}
-
-extension Int {
-    func arc4random() -> Int {
-        if self > 0 {
-            return Int(arc4random_uniform(UInt32(self)))
-        }
-        else if self < 0 {
-            return Int(arc4random_uniform(UInt32(abs(self))))
-        }
-        else {
-            return 0
-        }
     }
 }

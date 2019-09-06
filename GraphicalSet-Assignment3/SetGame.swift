@@ -11,7 +11,7 @@ import UIKit
 
 class SetGame {
     
-    var cards = [Card]()
+    var cards = [SetCard]()
     
     var shapesArray = ["squiggles", "diamonds", "ovals"]
     var colorsDict = ["red": #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1),"green": #colorLiteral(red: 0, green: 0.9768045545, blue: 0, alpha: 1), "purple": #colorLiteral(red: 0.5791940689, green: 0.1280144453, blue: 0.5726861358, alpha: 1)]
@@ -28,7 +28,7 @@ class SetGame {
                     
                      for count in countArray.indices {
                         
-                        let tempCard = Card(count: countArray[count], shape: shapeValue, color: colorValue, filling: fillingValue)
+                        let tempCard = SetCard(count: countArray[count], shape: shapeValue, color: colorValue, filling: fillingValue)
                         
                         cards.append(tempCard)
                         
@@ -38,7 +38,7 @@ class SetGame {
         }
     }
     
-    func isMatch(selectedCards: Set<Card>) -> Bool {
+    func isMatch(selectedCards: Set<SetCard>) -> Bool {
         var x = Array(selectedCards)
         
         let numbersFeatures = Set([x[0].count, x[1].count, x[2].count])
@@ -52,9 +52,9 @@ class SetGame {
             (shadingsFeatures.count == 1 || shadingsFeatures.count == 3)
     }
 
-    func getCardProperties() -> Card? {
+    func getCardProperties() -> SetCard? {
         if cards.count > 0 {
-            let cardIndex = cards.count.arc4random()
+            let cardIndex = cards.count.arc4random
             return cards.remove(at: cardIndex)
         }
         else {
